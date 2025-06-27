@@ -221,6 +221,85 @@ ${config.styleGuideRules}`
     ]
 }
 </EXAMPLE>
+
+<ADDITIONAL INSTRUCTIONS>
+Another AI already reviewed this PR and left some comments, please consider these findings when reviewing the PR:
+
+Here's a complete rule-by-rule review of your PR diff using the **enhanced ChatGPT PR Review Rules** you provided. Each rule is evaluated as ✅ Pass or ❌ Fail, with explanations.
+
+---
+
+## 📦 Language-Agnostic Rules
+
+| Rule ID    | Rule Description                                      | Result | Notes                                                                                                         |
+| ---------- | ----------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------- |
+| **GEN-01** | Variable names must be in \`camelCase\`                 | ✅ Pass | All new variables use \`camelCase\` (e.g., \`countOfUpdates\`, \`reportIDToTransactionIDs\`, \`deleteMoneyRequest\`). |
+| **GEN-02** | Descriptive variable names, avoid single-letter names | ❌ Fail | Variable \`x\` is still used: \`JSON::Value x = ...\` — not descriptive enough.                                   |
+| **GEN-03** | Boolean prefix: \`is\`, \`should\`, \`can\`, \`does\`         | ✅ Pass | New booleans like \`employeeActive\`, \`canUnholdTransactionMap\`, \`canHoldTransactionMap\` follow conventions.    |
+| **GEN-04** | Count variable names must end in \`Count\`              | ❌ Fail | \`countOfUpdates\` does not end in \`Count\` — violates suffix requirement.                                       |
+| **GEN-05** | Acronym capitalization                                | ❌ Fail | \`NVPNames\` violates rule (should be \`nvpNames\`).                                                              |
+| **GEN-06** | Avoid speculative abstractions                        | ✅ Pass | No speculative abstractions added.                                                                            |
+| **GEN-07** | Comments should explain “why” not just “what”         | ❌ Fail | Comments like \`// Collect all transactionIDs by reportIDs in a map\` explain *what*, not *why*.                |
+| **GEN-08** | Only use getters/setters with logic                   | ✅ Pass | No misuse of getters/setters.                                                                                 |
+
+---
+
+## 🗃️ SQL-Specific Rules
+
+| Rule ID    | Rule Description                             | Result | Notes                                                                               |
+| ---------- | -------------------------------------------- | ------ | ----------------------------------------------------------------------------------- |
+| **SQL-01** | SQL keywords must be uppercase               | ❌ Fail | Uses lowercase \`select\`, \`from\`, \`where\` (e.g., \`select name from nameValuePairs\`). |
+| **SQL-02** | Must use explicit JOINs                      | ✅ Pass | No joins added.                                                                     |
+| **SQL-03** | One SELECT field per line                    | ✅ Pass | SQL in \`buildPolicyResponse\` has one field per line.                                |
+| **SQL-04** | Multi-line JOIN conditions formatted clearly | ✅ Pass | No multi-condition JOINs.                                                           |
+| **SQL-05** | \`FROM\` and table name on same line           | ✅ Pass | SQL uses correct format (e.g., \`FROM nameValuePairs\`).                              |
+| **SQL-06** | Spaces around operators                      | ✅ Pass | Example: \`accountID = ...\` is spaced properly.                                      |
+| **SQL-07** | No space inside function call parentheses    | ✅ Pass | Example: \`JSON_EXTRACT(value, '$.type')\` is correct.                                |
+
+---
+
+## 🔧 C++-Specific Rules
+
+| Rule ID    | Rule Description                            | Result | Notes                                                          |
+| ---------- | ------------------------------------------- | ------ | -------------------------------------------------------------- |
+| **CPP-01** | Docs should only be in headers              | ✅ Pass | No excessive docs outside headers.                             |
+| **CPP-02** | If present, doc comments must be meaningful | ✅ Pass | No misuse of \`@param\` etc.                                     |
+| **CPP-03** | No \`using namespace\`, except \`std\`          | ✅ Pass | None found.                                                    |
+| **CPP-04** | Attach \`*\`/\`&\` to type, not variable        | ✅ Pass | e.g., \`map<string, set<string>>\` is correct.                   |
+| **CPP-05** | Use \`const T&\` for large types              | ✅ Pass | e.g., \`const auto& row\` is used.                               |
+| **CPP-06** | Avoid binding const ref to temporary        | ✅ Pass | No such violations found.                                      |
+| **CPP-07** | Always access SQL columns by name           | ✅ Pass | e.g., \`row["policyID"]\` is correct.                            |
+| **CPP-08** | Queries must be in correct \`lib/\` class     | ✅ Pass | Query added in \`Report.cpp\`, appropriate class.                |
+| **CPP-09** | Use \`.value()\`/\`.has_value()\` for optionals | ✅ Pass | No optional misuse.                                            |
+| **CPP-10** | Prefer early returns                        | ✅ Pass | Clear and readable control flow.                               |
+| **CPP-11** | Use \`static_cast<T>\` instead of C-style     | ✅ Pass | No casts added.                                                |
+| **CPP-12** | Use angle brackets for include paths        | ❌ Fail | Converted includes to quotes: \`#include "auth/lib/Billing.h"\`. |
+| **CPP-13** | Use \`EXPECT_\` macros in tests               | ✅ Pass | No test macros present.                                        |
+| **CPP-14** | Use overloads when logic differs            | ✅ Pass | No overloading issues.                                         |
+
+---
+
+## ✅ Summary
+
+| Category      | Pass | Fail |
+| ------------- | ---- | ---- |
+| General Rules | 4    | 4    |
+| SQL Rules     | 6    | 1    |
+| C++ Rules     | 13   | 1    |
+
+---
+
+## 🔴 Failing Rules Summary
+
+1. **GEN-02**: \`JSON::Value x\` is not descriptive.
+2. **GEN-04**: \`countOfUpdates\` does not end in \`Count\`.
+3. **GEN-05**: \`NVPNames\` should follow acronym formatting.
+4. **GEN-07**: Comments describe “what” not “why”.
+5. **SQL-01**: SQL keywords must be uppercase.
+6. **CPP-12**: Use angle brackets for includes instead of quotes.
+
+</ADDITIONAL INSTRUCTIONS>
+
 `;
 
 
