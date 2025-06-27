@@ -223,7 +223,7 @@ ${config.styleGuideRules}`
 </EXAMPLE>
 
 <ADDITIONAL INSTRUCTIONS>
-Another AI already reviewed this PR and left some comments, please consider these findings when reviewing the PR:
+ChatGPT already reviewed this PR and left some comments, please INCLUDE these findings when you review the PR in the same format as the example above, and make them critical:
 
 Here's a complete rule-by-rule review of your PR diff using the **enhanced ChatGPT PR Review Rules** you provided. Each rule is evaluated as ✅ Pass or ❌ Fail, with explanations.
 
