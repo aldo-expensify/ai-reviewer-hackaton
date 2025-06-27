@@ -254,13 +254,13 @@ async function submitReview(
 
   // Handle line comments
   let lineComments = [];
-  let skippedComments = [];
+  let skippedComments : AIComment[] = [];
   for (const comment of comments) {
-    if (comment.critical || comment.label === "typo") {
+    // if (comment.critical || comment.label === "typo") {
       lineComments.push(comment);
-    } else {
-      skippedComments.push(comment);
-    }
+    // } else {
+    //   skippedComments.push(comment);
+    // }
   }
 
   // Try to submit all comments at once
