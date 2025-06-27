@@ -159,6 +159,10 @@ export function buildReviewSummary(
   // Files section
   body += `<details>\n<summary>Files Processed (${files.length})</summary>\n\n`;
   for (const diff of files) {
+    if (diff.filename.indexOf('presubmit.yml') !== -1) {
+      console.log('Skipping presubmit.yml file');
+      continue; // Skip presubmit.yml file
+    }
     let fileText = `- ${diff.filename}`;
     if (diff.status === "renamed") {
       fileText += ` (from ${diff.previous_filename})`;

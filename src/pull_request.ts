@@ -69,7 +69,15 @@ export async function handlePullRequest() {
     ...context.repo,
     pull_number: pull_request.number,
   });
-  let filesToReview = files.map((file) =>
+  let filesToReview = files
+    .filter(file => {
+      if (file.filename.indexOf('presubmit.yml') !== -1) {
+        console.log('Skipping presubmit.yml file, return false');
+        return false; // Skip presubmit.yml file
+      }
+      return true;
+    })
+    .map((file) =>
     parseFileDiff(file, reviewCommentThreads)
   );
   info(`successfully fetched file diffs`);
