@@ -50,9 +50,10 @@ export async function handlePullRequest() {
     ...context.repo,
     issue_number: pull_request.number,
   });
-  let overviewComment = existingComments.find((comment) =>
-    comment.body?.includes(OVERVIEW_MESSAGE_SIGNATURE)
-  );
+  let overviewComment = undefined;
+  // existingComments.find((comment) =>
+  //   comment.body?.includes(OVERVIEW_MESSAGE_SIGNATURE)
+  // );
   const isIncrementalReview = !!overviewComment;
 
   // Maybe fetch review comments
